@@ -21,6 +21,7 @@ public class RequestIdUtil {
 		if (parameterRequestId == null || headerRequestId == null) {
 			logger.info("request parameter 和 header 都没有requestId入参");
 			requestId = UUID.randomUUID().toString();
+			logger.debug("Uese random UUID as requestId: " + requestId);
 		} else {
 			requestId = parameterRequestId != null ? parameterRequestId : headerRequestId;
 		}

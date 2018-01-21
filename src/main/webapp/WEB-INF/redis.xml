@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<!-- 标签提供了一种优雅的外在化参数配置的方式，不过该标签在Spring配置文件中只能存在一个(单例) -->
+	<context:property-placeholder location="classpath:WEB-INF/redis.properties" />
+
+	<!-- BeanFactoryPostProcessor接口的一个实现,可以将上下文中的属性值放在另一个单独的标准java Properties文件中去 -->
+	<bean id="propertyConfigurerRedis"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="order" value="1" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="systemPropertiesMode" value="1"/>
+		<property name="searchSystemEnvironment" value="true" />
+		<property name="locations">
+            <list>
+                <value>classpath:WEB-INF/redis.properties</value>
+            </list>
+        </property>
+	</bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+    	<!-- 最大空闲连接数, 默认8个 -->
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <!-- 在获取连接的时候检查有效性, 默认false -->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+    </bean>
+
+    <bean id="jedisConnectionFactory"
+        class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="usePool" value="true"></property>
+        <property name="hostName" value="${redis.host}" />
+        <property name="port" value="${redis.port}" />
+        <property name="timeout" value="${redis.timeout}" />
+        <property name="database" value="${redis.default.db}"></property>
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+    </bean>
+
+    <bean id="redisTemplate"
+        class="org.springframework.data.redis.core.StringRedisTemplate"
+        p:connectionFactory-ref="jedisConnectionFactory">
+    </bean>
+
+    <bean id="redisBase" abstract="true">
+        <property name="template" ref="redisTemplate" />
+    </bean>
+
+    <context:component-scan base-package="shixzh.spring.springmvc.redisclient" />
+
+</beans>

@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.filters.RequestFilter;
+import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,11 @@ public class RequestIdFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         String requestId = RequestIdUtil.getRequestId((HttpServletRequest)request);
-        
+        // MDC也就是Meta Data Controller 元数据控制器
+        MDC.put("requestId", requestId);
+        chain.doFilter(request, response);
+        RequestIdUtil.requestIdThreadLocal.remove();
+        MDC.remove("requestId");
     }
 
     @Override
