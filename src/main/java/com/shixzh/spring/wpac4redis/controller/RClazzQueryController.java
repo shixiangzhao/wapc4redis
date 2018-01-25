@@ -14,7 +14,7 @@ import com.shixzh.spring.wpac4redis.model.Clazz;
 import com.shixzh.spring.wpac4redis.service.RedisService;
 import com.shixzh.spring.wpac4redis.util.RedisTool;
 
-@RequestMapping("redis")
+@RequestMapping("/redis")
 @Controller
 public class RClazzQueryController {
 

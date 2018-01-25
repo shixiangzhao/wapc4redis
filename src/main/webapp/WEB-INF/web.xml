@@ -3,7 +3,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-<!-- 
 	<filter>
 		<filter-name>redisFilter</filter-name>
 		<filter-class>com.shixzh.spring.wpac4redis.filter.RequestIdFilter</filter-class>
@@ -13,8 +12,8 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 		<filter-name>redisFilter</filter-name>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>
--->
 	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
