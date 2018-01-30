@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<!-- 标签提供了一种优雅的外在化参数配置的方式，不过该标签在Spring配置文件中只能存在一个(单例) -->
-	<context:property-placeholder location="classpath:WEB-INF/redis.properties" />
+	<context:property-placeholder location="classpath:../redis.properties" />
 
 	<!-- BeanFactoryPostProcessor接口的一个实现,可以将上下文中的属性值放在另一个单独的标准java Properties文件中去 -->
 	<bean id="propertyConfigurerRedis"
@@ -17,7 +17,7 @@
 		<property name="searchSystemEnvironment" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:WEB-INF/redis.properties</value>
+				<value>classpath:../redis.properties</value>
 			</list>
 		</property>
 	</bean>
