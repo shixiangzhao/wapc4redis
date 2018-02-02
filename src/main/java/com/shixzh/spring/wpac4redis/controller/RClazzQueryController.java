@@ -28,7 +28,7 @@ public class RClazzQueryController {
 
 		if (rs != null) {
 			System.out.println("RedisService: " + rs);
-			getAllClazz();
+			//getAllClazz();
 		}
 		return "SUCCESS";
 	}
