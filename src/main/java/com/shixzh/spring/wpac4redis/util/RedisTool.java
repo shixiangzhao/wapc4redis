@@ -12,7 +12,7 @@ public class RedisTool {
 
 	public static ApplicationContext getFactory() {
 		if (factory == null) {
-			factory = new ClassPathXmlApplicationContext("classpath:../redis.xml");
+			factory = new ClassPathXmlApplicationContext("classpath:redis.xml");
 		}
 		return factory;
 	}
